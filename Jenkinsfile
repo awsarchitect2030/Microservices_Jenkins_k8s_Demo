@@ -19,8 +19,11 @@ pipeline {
                 sh 'echo "Project Files:"'
                 sh 'ls -l'
                 
+                sh 'echo "Kubernetes YAML Files:"'
+                sh 'ls -l k8s/'
             }
         }
+        
         stage('Check Docker Access') {
     steps {
         sh 'whoami'
@@ -117,6 +120,23 @@ pipeline {
             }
         }
 
+        stage('Deploy to EKS') {
+            steps {
+
+                sh '''
+                kubectl apply -f k8s/
+                '''
+
+                sh '''
+                kubectl get deployments
+                '''
+
+                sh '''
+                kubectl get pods
+                '''
+            }
+        }
+        
         stage('Verify Docker Images') {
             steps {
 
