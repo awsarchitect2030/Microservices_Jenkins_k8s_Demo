@@ -18,9 +18,7 @@ pipeline {
 
                 sh 'echo "Project Files:"'
                 sh 'ls -l'
-
-                sh 'echo "Kubernetes YAML Files:"'
-                sh 'ls -l k8s/'
+                
             }
         }
 
