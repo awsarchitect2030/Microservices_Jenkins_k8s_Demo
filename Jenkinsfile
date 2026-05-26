@@ -21,7 +21,13 @@ pipeline {
                 
             }
         }
-
+        stage('Check Docker Access') {
+    steps {
+        sh 'whoami'
+        sh 'groups'
+        sh 'docker ps'
+       }
+    }
         stage('Cleanup Old Containers and Images') {
             steps {
 
