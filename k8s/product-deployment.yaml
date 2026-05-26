@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: product-deployment
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: product-app
+
+  template:
+    metadata:
+      labels:
+        app: product-app
+
+    spec:
+      containers:
+      - name: product-container
+        image: awsarchitect2030/product-service:v1
+
+        ports:
+        - containerPort: 5002

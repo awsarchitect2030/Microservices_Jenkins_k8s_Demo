@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: order-deployment
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: order-app
+
+  template:
+    metadata:
+      labels:
+        app: order-app
+
+    spec:
+      containers:
+      - name: order-container
+        image: awsarchitect2030/order-service:v1
+
+        ports:
+        - containerPort: 5003
