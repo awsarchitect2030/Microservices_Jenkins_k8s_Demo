@@ -18,12 +18,16 @@ pipeline {
 
                 sh 'echo "Project Files:"'
                 sh 'ls -l'
-
-                sh 'echo "Kubernetes YAML Files:"'
-                sh 'ls -l k8s/'
+                
             }
         }
-
+        stage('Check Docker Access') {
+    steps {
+        sh 'whoami'
+        sh 'groups'
+        sh 'docker ps'
+       }
+    }
         stage('Cleanup Old Containers and Images') {
             steps {
 
@@ -109,23 +113,6 @@ pipeline {
 
                 sh '''
                 docker push awsarchitect2030/order-service:v1
-                '''
-            }
-        }
-
-        stage('Deploy to EKS') {
-            steps {
-
-                sh '''
-                kubectl apply -f k8s/
-                '''
-
-                sh '''
-                kubectl get deployments
-                '''
-
-                sh '''
-                kubectl get pods
                 '''
             }
         }
